@@ -13,9 +13,19 @@ export const api = {
         }
     },
     getData: async function() {
-        if (this.json === null) {
+        const localData = localStorage.getItem("apiData")
+        if (localData) {
+            this.json = JSON.parse(localData);
+        } else {
             this.json = await this.fetchApi();
+            this.saveDataInLocalStorage();
         }
         return this.json;
+    },
+
+    saveDataInLocalStorage: function() {
+        if (this.json) {
+            localStorage.setItem("apiData", JSON.stringify(this.json));
+        }
     }
 }
