@@ -1,11 +1,12 @@
 import { api } from "./fetchApi.js"
 
-export const quizLogic = {
+export const quizStructure = {
     questions: [],
     answers: [],
     quiz: [],
+    score: 0,
 
-    questionsAndAnswersList: function (index) {
+    separateEachQuestion: function (index) {
         const data = api.json;
 
         const question = data.results[index].question;
@@ -15,10 +16,6 @@ export const quizLogic = {
         this.answers.push(correctAnswer, ...incorrectAnswer);
         this.quiz = [question, this.answers];
         return this.quiz;
-    },
-
-    winCondition: function (answer, index) {
-        return answer === api.json.results[index].correct_answer;
     },
 
     getRandom: function (max) {
@@ -33,6 +30,17 @@ export const quizLogic = {
             let randomItem = this.answers[randomIndex];
             this.answers.splice(randomIndex, 1);
             this.answers.push(randomItem);
+        }
+    }
+}
+
+export const quizLogic = {
+    winCondition: function (answer, index) {
+        return answer === api.json.results[index].correct_answer;
+    },
+    increaseScore: function () {
+        if (this.winCondition) {
+            quizStructure.score ++;
         }
     }
 }
