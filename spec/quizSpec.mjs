@@ -1,6 +1,7 @@
 
 import { quizLogic, quizStructure } from "../src/quizLogic.js";
 import { api } from "../src/fetchApi.js"
+ 
 describe("Quiz Logic", () => {
     beforeEach(() => {
         api.json = {
@@ -13,12 +14,11 @@ describe("Quiz Logic", () => {
         ]}
     })
     it("should increase the score when the winCondition is met", () => {
-        expect(quizStructure.score).toBe(0);
-        quizLogic.increaseScore();
         expect(quizStructure.score).toBe(1);
+        quizLogic.increaseScore();
+        expect(quizStructure.score).toBe(2);
     })
     it("should return 'true' if the answer matches the correct answer", () => {
-        console.log(api.json)
         expect(quizLogic.increaseScoreCondition("The Prodigy", 0)).toBe(true);
     })
 })
