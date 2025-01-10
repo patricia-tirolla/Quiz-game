@@ -1,7 +1,7 @@
 export const api = {
     apiUrl: "https://opentdb.com/api.php?amount=10&difficulty=medium&type=multiple&category=12",
     json: null,
-    fetchApi: async function(url = this.apiUrl) {
+    async fetchApi(url = this.apiUrl) {
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -9,10 +9,12 @@ export const api = {
             }
             return await response.json();
         } catch (error) {
-            throw error;
+            console.error("Error:", error);
+            alert("an error occured while fetching data. Please, try again later.");
+            return null;
         }
     },
-    getData: async function() {
+    async getData() {
         const localData = localStorage.getItem("apiData")
         if (localData) {
             this.json = JSON.parse(localData);
@@ -23,7 +25,7 @@ export const api = {
         return this.json;
     },
 
-    saveDataInLocalStorage: function() {
+    saveDataInLocalStorage() {
         if (this.json) {
             localStorage.setItem("apiData", JSON.stringify(this.json));
         }
