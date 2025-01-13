@@ -46,13 +46,17 @@ export const quizStructure = {
 }
 
 export const quizLogic = {
-    increaseScoreCondition(answer, index) {
+    checkIfChoiceIsCorrect(answer, index) {
         if (!api.json || !api.json.results[index]) {
             throw new Error("Invalid question index or API data not loaded.");
         }
         if (answer === api.json.results[index].correct_answer) {
             this.increaseScore();
+            alert("correct")
             return true;
+        } else {
+            alert("wrong")
+            return false;
         }
     },
     increaseScore() {
