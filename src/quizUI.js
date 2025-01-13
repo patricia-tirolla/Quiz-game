@@ -71,7 +71,6 @@ export const gameFlow = {
         };
     },
     QuizEnd() {
-        alert("End of the quiz!")
         score.showScore();
         this.disablePlayerToChose();
         this.hideDisplay();
