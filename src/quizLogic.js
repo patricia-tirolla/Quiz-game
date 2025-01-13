@@ -52,10 +52,8 @@ export const quizLogic = {
         }
         if (answer === api.json.results[index].correct_answer) {
             this.increaseScore();
-            alert("correct")
             return true;
         } else {
-            alert("wrong")
             return false;
         }
     },
