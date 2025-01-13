@@ -3,7 +3,7 @@ import { quizLogic, quizStructure } from "./quizLogic";
 // buttons handlers
 const startButton = document.getElementById("start-quiz");
 startButton.addEventListener("click", () => {
-    gameFlow.gameStart();
+    gameFlow.quizStart();
 });
 
 const nextButton = document.getElementById("next-button");
@@ -13,7 +13,7 @@ nextButton.addEventListener("click", () => {
 
 const stopButton = document.getElementById("stop-button");
 stopButton.addEventListener("click", () => {
-    gameFlow.gameEnd();
+    gameFlow.QuizEnd();
 })
 
 // Game flow
@@ -23,7 +23,7 @@ export const gameFlow = {
     answersButtonList: document.getElementsByClassName("answers-text"),
     questionText: document.getElementById("question-text"),
 
-    gameStart() {
+    quizStart() {
         quizStructure.score = 0;
         this.i = 0;
         score.hideScore();
@@ -32,17 +32,17 @@ export const gameFlow = {
         quizStructure.quizAllQuestionsAndAnswers();
 
         this.hideDisplay();
-        this.enableToChose();
+        this.enablePlayerToChose();
         this.display();
-        this.playerChoice();
+        this.handlePlayerChoice();
     },
     nextQuestion() {
         if (this.i < quizStructure.quiz.length - 1) {
             this.i++;
-            this.enableToChose();
+            this.enablePlayerToChose();
             this.display();
         } else if (this.i == quizStructure.quiz.length - 1) {
-            this.gameEnd()
+            this.QuizEnd()
         }
 
     },
@@ -56,22 +56,22 @@ export const gameFlow = {
             item.innerHTML = answers[index];
         }
     },
-    playerChoice() {
+    handlePlayerChoice() {
         for (const button of this.answersButtonList) {
             button.addEventListener("click", (e) => {
                 const answer = button.textContent;
                 quizLogic.checkIfChoiceIsCorrect(answer, this.i);
-                this.disableToChose();
+                this.disablePlayerToChose();
                 e.stopImmediatePropagation();
             })
         }
     },
-    disableToChose() {
+    disablePlayerToChose() {
         for (const item of this.answersButtonList) {
             item.setAttribute("disabled", true);
         }
     },
-    enableToChose() {
+    enablePlayerToChose() {
         for (const button of this.answersButtonList) {
             button.removeAttribute("disabled");
         }
@@ -80,10 +80,10 @@ export const gameFlow = {
         this.questionText.style.display = "none";
         this.answerscontainer.style.display = "none";
     },
-    gameEnd() {
+    QuizEnd() {
         alert("End of the quiz!")
         score.showScore();
-        this.disableToChose();
+        this.disablePlayerToChose();
         this.hideDisplay();
     }
 }
