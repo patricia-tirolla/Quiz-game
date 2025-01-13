@@ -4,6 +4,7 @@ import { api } from "../src/fetchApi.js"
  
 describe("Quiz Logic", () => {
     beforeEach(() => {
+        quizStructure.score = 0;
         api.json = {
             results: [
                 {
@@ -14,11 +15,11 @@ describe("Quiz Logic", () => {
         ]}
     })
     it("should increase the score when the winCondition is met", () => {
-        expect(quizStructure.score).toBe(1);
+        expect(quizStructure.score).toBe(0);
         quizLogic.increaseScore();
-        expect(quizStructure.score).toBe(2);
+        expect(quizStructure.score).toBe(1);
     })
     it("should return 'true' if the answer matches the correct answer", () => {
-        expect(quizLogic.increaseScoreCondition("The Prodigy", 0)).toBe(true);
+        expect(quizLogic.checkIfChoiceIsCorrect("The Prodigy", 0)).toBe(true);
     })
 })
