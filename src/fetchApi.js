@@ -15,19 +15,7 @@ export const api = {
         }
     },
     async getData() {
-        const localData = localStorage.getItem("apiData")
-        if (localData) {
-            this.json = JSON.parse(localData);
-        } else {
-            this.json = await this.fetchApi();
-            this.saveDataInLocalStorage();
-        }
+        this.json = await this.fetchApi();
         return this.json;
     },
-
-    saveDataInLocalStorage() {
-        if (this.json) {
-            localStorage.setItem("apiData", JSON.stringify(this.json));
-        }
-    }
 }
