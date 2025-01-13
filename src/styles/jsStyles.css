@@ -2,11 +2,13 @@
     background-color: green;
     color: white;
     border-radius: 10px;
+    padding: 10px 20px;
 }
 .wrong-answer {
     background-color: red;
     color: white;
     border-radius: 10px;
+    padding: 10px 20px;
 }
 .default-style {
     background-color: white;
