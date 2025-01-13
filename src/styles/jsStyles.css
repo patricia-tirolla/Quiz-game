@@ -1,0 +1,20 @@
+.correct-answer {
+    background-color: green;
+    color: white;
+    border-radius: 10px;
+}
+.wrong-answer {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+}
+.default-style {
+    background-color: white;
+    color: black;
+}
+.display-none {
+    display: none;
+}
+.display-flex {
+    display: flex;
+}

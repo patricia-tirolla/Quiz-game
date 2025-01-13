@@ -1,0 +1,108 @@
+:root {
+    --background-orange: #FFC38C;
+    --font-color: #2E2C38;
+    --background-hover: var(--background-orange);
+
+    /* -----buttons */
+    --buttons-padding: 10px 30px;
+    --buttons-border: solid 1px var(--background-purple);
+    --buttons-border-radius: 10px;
+    --background-purple: #7583FE;
+}
+
+/* ----------------- GLOBAL */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+
+}
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 30px 50px;
+    width: 800px;
+    border: solid 2px var(--background-orange);
+    border-radius: 20px;
+    background-color: white;
+}
+h1 {
+    display: flex;
+    margin: 0;
+}
+h2 {
+    margin: 0;
+    font-size: 1.6em;
+    height: 50px;
+}
+button {
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+/* ----------------- CONTAINERS */
+#quiz-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    padding: 30px 50px;
+    border: solid 2px var(--background-orange);
+    border-radius: 20px;
+    background-color: var(--background-orange);
+}
+#quiz-display {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#answers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+
+    width: 100%;
+    height: 200px;
+}
+#buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ----------------- BUTTONS */
+#start-quiz,
+#next-button,
+#stop-button {
+    padding: var(--buttons-padding);
+    border-radius: var(--buttons-border-radius);
+    border: var(--buttons-border);
+    background-color: var(--background-purple);
+    color: white;
+}
+.answers-text {
+    display: flex;
+
+    padding: 5px;
+    width: 100%;
+    border: none;
+    font-size: 1.3em;
+}
+
+/* ----------------- HOVER */
+#start-quiz:hover,
+#next-button:hover,
+#stop-button:hover {
+    background-color: var(--background-orange);
+    border: var(--background-orange)
+}
+.answers-text:hover {
+    background-color: var(--background-hover);
+    border-radius: 10px;
+}

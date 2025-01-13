@@ -63,6 +63,7 @@ export const gameFlow = {
             button.addEventListener("click", (e) => {
                 const answer = button.textContent;
                 quizLogic.checkIfChoiceIsCorrect(answer, this.i);
+                button.classList.remove("default-style");
                 styles.stylePlayerChoice(button, answer, this.i);
                 this.disablePlayerToChose();
                 e.stopImmediatePropagation();
@@ -78,9 +79,9 @@ export const gameFlow = {
     enablePlayerToChose() {
         for (const button of this.answersButtonList) {
             button.removeAttribute("disabled");
-            
-            button.style.backgroundColor = "white";
-            button.style.color = "black";
+            button.classList.remove("correct-answer");
+            button.classList.remove("wrong-answer");
+            button.classList.add("default-style");
         };
     },
     disablePlayerToChose() {
@@ -123,11 +124,9 @@ const score = {
 const styles = {
     stylePlayerChoice(choice, answer, index) {
         if (quizLogic.checkIfChoiceIsCorrect(answer, index)) {
-            choice.style.backgroundColor = "green";
-            choice.style.color = "white";
+            choice.classList.add("correct-answer");
         } else {
-            choice.style.backgroundColor = "red";
-            choice.style.color = "white";
+            choice.classList.add("wrong-answer");
         }
     },
 };
