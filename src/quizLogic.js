@@ -1,32 +1,21 @@
 import { api } from "./fetchApi.js"
 
 export const quizStructure = {
-    answers: [],
-    quizSection: [],
     quiz: [],
     score: 0,
 
-    separateEachQuizSection(index) {
-        const data = api.json;
-
-        const question = data.results[index].question;
-        const correctAnswer = data.results[index].correct_answer;
-        const incorrectAnswer = data.results[index].incorrect_answers;
-
-        this.answers = [correctAnswer, ...incorrectAnswer];
-        this.shuffleAnswers()
-        
-        this.quizSection = [question, this.answers];
-        return this.quizSection;
+    createQuizSection({question, correct_answer, incorrect_answers}) {
+        return {
+            question: question,
+            answers: this.shuffleAnswers([correct_answer, ...incorrect_answers]),
+        };
     },
 
-    quizAllQuestionsAndAnswers() {
+    setUpQuiz() {
         for (let i = 0; i < api.json.results.length; i++) {
-            this.separateEachQuizSection(i);
-            const quizSection = this.quizSection;
-            this.quiz.push(quizSection);
+            const quizSection = this.createQuizSection(api.json.results[i]);
+            this.quiz[i] = { quizSection };
         }
-        return this.quiz;
     },
 
     getRandom: function (max) {
@@ -34,22 +23,19 @@ export const quizStructure = {
         return index;
     },
 
-    shuffleAnswers() {
-        for (let i = 0; i < this.answers.length; i++) {
-            const randomIndex = this.getRandom((this.answers.length - i));
-            let randomItem = this.answers[randomIndex];
-            this.answers.splice(randomIndex, 1);
-            this.answers.push(randomItem);
+    shuffleAnswers(answers) {
+        for (let i = 0; i < answers.length; i++) {
+            const randomIndex = this.getRandom((answers.length - i));
+            let randomItem = answers[randomIndex];
+            answers.splice(randomIndex, 1);
+            answers.push(randomItem);
         }
-        return this.answers;
+        return answers;
     }
 }
 
 export const quizLogic = {
     checkIfChoiceIsCorrect(answer, index) {
-        if (!api.json || !api.json.results[index]) {
-            throw new Error("Invalid question index or API data not loaded.");
-        }
         if (answer === api.json.results[index].correct_answer) {
             this.increaseScore();
             return true;
