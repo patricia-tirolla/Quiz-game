@@ -19,10 +19,10 @@ stopButton.addEventListener("click", () => {
 // Game flow
 export const gameFlow = {
     i: 0,
-    answerscontainer: document.getElementById("answers-container"),
+    
     answersButtonList: document.getElementsByClassName("answers-text"),
     questionText: document.getElementById("question-text"),
-    buttonsContainer: document.getElementById("buttons-container"),
+    
 
     quizStart() {
         quizStructure.score = 0;
@@ -32,27 +32,17 @@ export const gameFlow = {
         quizStructure.quiz = [];
         quizStructure.quizAllQuestionsAndAnswers();
 
-        this.hideDisplay();
-        this.enablePlayerToChose();
-        this.display();
+        displayDOM.hideDisplay();
+        displayDOM.enablePlayerToChose();
+        displayDOM.display();
         this.handlePlayerChoice();
-    },
-    display() {
-        this.showDisplay();
-
-        this.questionText.innerHTML = quizStructure.quiz[this.i][0];
-        for (let index = 0; index < this.answersButtonList.length; index++) {
-            const item = this.answersButtonList[index];
-            const answers = quizStructure.quiz[this.i][1];
-            item.innerHTML = answers[index];
-        };
     },
     nextQuestion() {
         if (this.i < quizStructure.quiz.length - 1) {
             this.i++;
 
-            this.enablePlayerToChose();
-            this.display();
+            displayDOM.enablePlayerToChose();
+            displayDOM.display();
         } else if (this.i == quizStructure.quiz.length - 1) {
             this.QuizEnd();
         }
@@ -65,18 +55,34 @@ export const gameFlow = {
                 quizLogic.checkIfChoiceIsCorrect(answer, this.i);
                 button.classList.remove("default-style");
                 styles.stylePlayerChoice(button, answer, this.i);
-                this.disablePlayerToChose();
+                displayDOM.disablePlayerToChose();
                 e.stopImmediatePropagation();
             });
         };
     },
     QuizEnd() {
         score.showScore();
-        this.disablePlayerToChose();
-        this.hideDisplay();
+        displayDOM.disablePlayerToChose();
+        displayDOM.hideDisplay();
+    },
+};
+
+const displayDOM = {
+    // Would it be better to separate the display DOM here?
+    answerscontainer: document.getElementById("answers-container"),
+    buttonsContainer: document.getElementById("buttons-container"),
+    display() {
+        this.showDisplay();
+
+        gameFlow.questionText.innerHTML = quizStructure.quiz[gameFlow.i][0];
+        for (let index = 0; index < gameFlow.answersButtonList.length; index++) {
+            const item = gameFlow.answersButtonList[index];
+            const answers = quizStructure.quiz[gameFlow.i][1];
+            item.innerHTML = answers[index];
+        };
     },
     enablePlayerToChose() {
-        for (const button of this.answersButtonList) {
+        for (const button of gameFlow.answersButtonList) {
             button.removeAttribute("disabled");
             button.classList.remove("correct-answer");
             button.classList.remove("wrong-answer");
@@ -84,24 +90,20 @@ export const gameFlow = {
         };
     },
     disablePlayerToChose() {
-        for (const item of this.answersButtonList) {
+        for (const item of gameFlow.answersButtonList) {
             item.setAttribute("disabled", true);
         };
     },
     showDisplay() {
-        this.questionText.style.display = "flex";
+        gameFlow.questionText.style.display = "flex";
         this.answerscontainer.style.display = "flex";
         this.buttonsContainer.style.display = "flex";
     },
     hideDisplay() {
-        this.questionText.style.display = "none";
+        gameFlow.questionText.style.display = "none";
         this.answerscontainer.style.display = "none";
         this.buttonsContainer.style.display = "none";
     }
-};
-
-const displayDOM = {
-    // Would it be better to separate the display DOM here?
 };
 
 const score = {
