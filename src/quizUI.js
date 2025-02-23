@@ -39,6 +39,7 @@ export const gameFlow = {
         if (this.i < quizStructure.quiz.length - 1) {
             this.i++;
 
+            nextButton.disabled = true;
             view.enablePlayerToChose();
             view.buildDisplay(this.i);
         } else if (this.i == quizStructure.quiz.length - 1) {
@@ -54,6 +55,7 @@ export const gameFlow = {
                 styles.stylePlayerChoice(button, answer, this.i);
                 view.disablePlayerToChose();
                 e.stopImmediatePropagation();
+                nextButton.disabled = false;
             });
         };
     },
