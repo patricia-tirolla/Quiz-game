@@ -5,6 +5,4 @@ import jsStyles from "./styles/jsStyles.css";
 
 console.log(await api.getData());
 
-
-
-
+// random comment for git commit
